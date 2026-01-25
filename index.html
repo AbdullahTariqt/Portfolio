@@ -396,7 +396,7 @@
                 </div>
                 <h1 class="fade-in-stagger" style="--delay: 2;">Ensuring <span class="gradient-text">Digital Perfection</span> through Rigorous Testing.</h1>
                 <p class="hero-sub fade-in-stagger" style="--delay: 3;">
-                    I am <strong>Abdullah Tariq</strong>, a CS Student and SQA Engineer at <strong>Nexus Eclipse</strong>. 
+                    I am <strong>Abdullah Tariq</strong>, a CS Student and Associate SDET Engineer at <strong>Nexus Eclipse</strong>. 
                     I bridge the gap between code and quality using advanced automation and AI-driven debugging.
                 </p>
                 <div class="cta-group fade-in-stagger" style="--delay: 4;">
@@ -431,7 +431,7 @@
                             My journey began with a simple curiosity: <em>"Why does software fail?"</em> This led me to dive deep into Computer Science, where I learned that quality isn't an afterthought—it's the foundation of trust.
                         </p>
                         <p style="margin-bottom: 12px; color: var(--text-muted); line-height: 1.7;">
-                            Currently, as an <strong>SQA Engineer at Nexus Eclipse</strong>, I don't just find bugs; I protect the user experience. I specialize in identifying critical vulnerabilities in Enterprise Systems and FinTech apps before they ever reach production.
+                            Currently, as an <strong>Associate SDET Engineer at Nexus Eclipse</strong>, I don't just find bugs; I protect the user experience. I specialize in identifying critical vulnerabilities in Enterprise Systems and FinTech apps before they ever reach production.
                         </p>
                     </div>
 
@@ -466,41 +466,252 @@
     <section id="stack" class="section-padding bg-darker">
         <div class="container">
             <div class="section-header text-center reveal">
-                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">The Technology <span class="gradient-text">Cheat Sheet</span></h2>
-                <p style="color: var(--text-muted);">My toolkit for ensuring software reliability and performance.</p>
+                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Technical <span class="gradient-text">API</span></h2>
+                <p style="color: var(--text-muted);">Don't just read my skills. Fetch them.</p>
             </div>
-            <div class="grid-3">
-                <div class="feature-card reveal">
-                    <div class="icon-box">⚡</div>
-                    <h3>Core Testing</h3>
-                    <ul class="cheat-list">
-                        <li><strong>Manual Testing:</strong> Exploratory, UI/UX, Functional</li>
-                        <li><strong>Automation:</strong> Selenium WebDriver, Cypress</li>
-                        <li><strong>AI Debugging:</strong> Cursor AI (Code Fixes)</li>
-                        <li><strong>API:</strong> Postman, REST Assured</li>
-                    </ul>
+
+            <div class="api-console-wrapper reveal">
+                
+                <div class="api-bar">
+                    <span class="method-badge">GET</span>
+                    <input type="text" value="https://api.abdullah.qa/v1/skills" readonly>
+                    <button class="btn-send" onclick="fetchSkills()">Send Request</button>
                 </div>
-                <div class="feature-card reveal" style="transition-delay: 0.1s;">
-                    <div class="icon-box">🛠️</div>
-                    <h3>Dev Environment & Ops</h3>
-                    <ul class="cheat-list">
-                        <li><strong>Tracking:</strong> Jira, ClickUp, Asana</li>
-                        <li><strong>Version Control:</strong> Git, GitHub</li>
-                        <li><strong>CI/CD:</strong> Jenkins Basics</li>
-                        <li><strong>OS:</strong> Linux, Windows, Mobile Environments</li>
-                    </ul>
+
+                <div class="api-window">
+                    <div class="api-header">
+                        <div style="display: flex; gap: 20px;">
+                            <span class="tab active">Body</span>
+                            <span class="tab">Headers</span>
+                            <span class="tab">Auth</span>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-left: auto;">
+                            <span id="api-status" class="status-badge hidden">Status: 200 OK</span>
+                            <span id="api-time" class="time-badge hidden">124ms</span>
+                        </div>
+                    </div>
+                    <div class="api-body">
+                        <div class="line-numbers">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                            <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                        </div>
+                        <pre id="json-output"><span class="comment">// Click 'Send Request' to fetch QA stack...</span></pre>
+                    </div>
                 </div>
-                <div class="feature-card reveal" style="transition-delay: 0.2s;">
-                    <div class="icon-box">📢</div>
-                    <h3>Communication</h3>
-                    <ul class="cheat-list">
-                        <li><strong>Chat:</strong> Slack, Microsoft Teams, Telegram</li>
-                        <li><strong>Video:</strong> Loom (Async), Zoom</li>
-                        <li><strong>Reporting:</strong> Jam.dev, Bug Reports</li>
-                    </ul>
-                </div>
+
             </div>
         </div>
+        
+        <style>
+            /* --- API CONSOLE STYLES --- */
+            .api-console-wrapper {
+                background: #0e0f19;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 25px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+                font-family: 'Fira Code', monospace;
+                max-width: 900px;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            /* 1. Request Bar */
+            .api-bar {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            .method-badge {
+                background: #10b981; /* Postman Green */
+                color: #fff;
+                font-weight: 700;
+                padding: 12px 16px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                letter-spacing: 1px;
+            }
+            .api-bar input {
+                flex: 1;
+                background: #161826;
+                border: 1px solid var(--border);
+                color: #e2e8f0;
+                padding: 10px 15px;
+                border-radius: 6px;
+                font-family: 'Fira Code', monospace;
+                font-size: 0.95rem;
+                outline: none;
+                transition: 0.3s;
+            }
+            .api-bar input:focus { border-color: var(--primary); }
+            
+            .btn-send {
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 0 30px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 600;
+                font-family: var(--font-main);
+                transition: all 0.2s;
+            }
+            .btn-send:hover { background: #4338ca; transform: translateY(-2px); }
+            .btn-send:active { transform: translateY(0); }
+            .btn-send:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; }
+
+            /* 2. Response Window */
+            .api-window {
+                background: #161826;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+            .api-header {
+                background: #0b0c15;
+                padding: 10px 20px;
+                border-bottom: 1px solid var(--border);
+                display: flex;
+                align-items: center;
+                font-size: 0.85rem;
+                color: var(--text-muted);
+            }
+            .tab { cursor: pointer; padding-bottom: 2px; transition: 0.3s; }
+            .tab:hover { color: white; }
+            .tab.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+            
+            .status-badge { color: #10b981; font-weight: bold; }
+            .time-badge { color: var(--text-muted); font-size: 0.8rem; }
+            .hidden { display: none !important; }
+
+            /* 3. JSON Body Area */
+            .api-body {
+                padding: 0;
+                min-height: 280px;
+                font-size: 0.9rem;
+                line-height: 1.6;
+                color: #e2e8f0;
+                display: flex;
+                position: relative;
+                background: #13141f;
+            }
+            
+            .line-numbers {
+                padding: 20px 10px;
+                background: #0e0f19;
+                border-right: 1px solid var(--border);
+                color: #4b5563;
+                display: flex;
+                flex-direction: column;
+                text-align: right;
+                user-select: none;
+                font-size: 0.85rem;
+            }
+            .line-numbers span { display: block; height: 1.6em; }
+
+            #json-output {
+                padding: 20px;
+                margin: 0;
+                overflow-x: auto;
+                white-space: pre;
+                flex: 1;
+            }
+            
+            /* JSON Syntax Highlighting Colors */
+            .key { color: #0ea5e9; }      /* Blue */
+            .string { color: #10b981; }   /* Green */
+            .number { color: #f59e0b; }   /* Orange */
+            .boolean { color: #ec4899; }  /* Pink */
+            .null { color: #ef4444; }     /* Red */
+            .bracket { color: #facc15; }  /* Yellow */
+            .comment { color: #64748b; font-style: italic; }
+
+            /* Mobile Responsiveness */
+            @media (max-width: 768px) {
+                .api-bar { flex-direction: column; gap: 10px; }
+                .method-badge { width: fit-content; font-size: 0.8rem; padding: 8px 12px; }
+                .btn-send { width: 100%; padding: 12px 0; }
+                .api-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+                .api-header > div { margin-left: 0 !important; width: 100%; justify-content: space-between; }
+                .line-numbers { display: none; } /* Hide line numbers on small screens to save space */
+                .api-body { padding-left: 0; }
+            }
+        </style>
+
+        <script>
+            function fetchSkills() {
+                const output = document.getElementById('json-output');
+                const status = document.getElementById('api-status');
+                const time = document.getElementById('api-time');
+                const btn = document.querySelector('.btn-send');
+
+                // 1. Loading State
+                btn.innerText = "Sending...";
+                btn.disabled = true;
+                output.innerHTML = '<span class="comment">// Connecting to Server...</span>\n<span class="comment">// Waiting for response...</span>';
+                status.classList.add('hidden');
+                time.classList.add('hidden');
+
+                // 2. Simulate Network Delay (1.5s)
+                setTimeout(() => {
+                    btn.innerText = "Send Request";
+                    btn.disabled = false;
+                    status.classList.remove('hidden');
+                    time.classList.remove('hidden');
+
+                    // 3. The Data (HTML formatted for colors)
+                    // Note: We use spans for colors. 
+                    const dataHTML = `
+<span class="bracket">{</span>
+  <span class="key">"candidate"</span>: <span class="string">"Abdullah Tariq"</span>,
+  <span class="key">"role"</span>: <span class="string">"Associate SDET Engineer"</span>,
+  <span class="key">"status"</span>: <span class="string">"Open to Work"</span>,
+  <span class="key">"technical_skills"</span>: <span class="bracket">{</span>
+    <span class="key">"automation"</span>: <span class="bracket">[</span><span class="string">"Selenium WebDriver"</span>, <span class="string">"Cypress"</span>, <span class="string">"Appium"</span><span class="bracket">]</span>,
+    <span class="key">"api_testing"</span>: <span class="bracket">[</span><span class="string">"Postman"</span>, <span class="string">"REST Assured"</span>, <span class="string">"SoapUI"</span><span class="bracket">]</span>,
+    <span class="key">"languages"</span>: <span class="bracket">[</span><span class="string">"Python"</span>, <span class="string">"Java"</span>, <span class="string">"SQL"</span><span class="bracket">]</span>,
+    <span class="key">"tools"</span>: <span class="bracket">[</span><span class="string">"Jira"</span>, <span class="string">"Jenkins"</span>, <span class="string">"Git"</span>, <span class="string">"Cursor AI"</span><span class="bracket">]</span>
+  <span class="bracket">}</span>,
+  <span class="key">"metrics"</span>: <span class="bracket">{</span>
+    <span class="key">"bugs_reported"</span>: <span class="number">500</span>,
+    <span class="key">"turnaround_time"</span>: <span class="string">"24h"</span>,
+    <span class="key">"client_satisfaction"</span>: <span class="number">100</span>
+  <span class="bracket">}</span>,
+  <span class="key">"hireable"</span>: <span class="boolean">true</span>
+<span class="bracket">}</span>`;
+                    
+                    // 4. Typewriter Logic (Preserves HTML tags)
+                    output.innerHTML = "";
+                    let i = 0;
+                    
+                    function typeJSON() {
+                        if (i < dataHTML.length) {
+                            // If we hit an HTML tag, append the whole tag at once so it doesn't break
+                            if (dataHTML.charAt(i) === '<') {
+                                let tagEnd = dataHTML.indexOf('>', i);
+                                output.innerHTML += dataHTML.substring(i, tagEnd + 1);
+                                i = tagEnd + 1;
+                            } else {
+                                output.innerHTML += dataHTML.charAt(i);
+                                i++;
+                            }
+                            
+                            // Scroll to bottom
+                            output.scrollTop = output.scrollHeight;
+                            
+                            // Speed of typing
+                            setTimeout(typeJSON, 2); 
+                        }
+                    }
+                    typeJSON();
+
+                }, 1200);
+            }
+        </script>
     </section>
 
     <section id="projects" class="section-padding">
@@ -538,7 +749,7 @@
                         <h3>Nexus Eclipse</h3>
                         <span class="tag current-tag">Current Role</span>
                     </div>
-                    <p class="role-sub">SQA Engineer | Quality Assurance Company</p>
+                    <p class="role-sub">Associate SDET Engineer | Quality Assurance Company</p>
                     <p>Leading comprehensive QA initiatives for enterprise clients, ensuring software reliability through systematic testing methodologies.</p>
                     <div class="tech-tags"><span>Full Cycle QA</span><span>Cursor AI</span><span>API Testing</span><span>Regression</span></div>
                 </div>
@@ -740,7 +951,7 @@
 
         const logs = [
             "> Initializing Abdullah's portfolio...",
-            "> Connecting to Nexus Eclipse server...",
+            "> Connecting to server...",
             "> Loading QA modules...",
             "> Skills: Selenium, Cypress, AI.",
             "> Status: READY TO HIRE. ✅"
