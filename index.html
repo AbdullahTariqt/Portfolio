@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Abdullah Tariq | QA Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         /* ========================================= */
-        /* 1. STRICT LAYOUT & RESET (THE FIX)        */
+        /* 1. STRICT LAYOUT & RESET                  */
         /* ========================================= */
         :root {
             --bg-body: #050507;
@@ -21,14 +21,15 @@
             --border: rgba(255, 255, 255, 0.1);
             --gradient-main: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
             --font-main: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html, body {
             width: 100%;
-            max-width: 100vw; /* Hard limit */
-            overflow-x: hidden; /* Cuts off side whitespace */
+            max-width: 100vw;
+            overflow-x: hidden;
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: var(--font-main);
@@ -37,8 +38,6 @@
         }
 
         html { scroll-behavior: smooth; }
-        
-        /* Images must never exceed screen width */
         img { max-width: 100%; height: auto; display: block; }
 
         /* ========================================= */
@@ -82,7 +81,7 @@
         /* 4. NAVBAR                                 */
         /* ========================================= */
         .navbar {
-            padding: 20px 0; position: fixed; width: 100%; top: 0; 
+            padding: 15px 0; position: fixed; width: 100%; top: 0; 
             background: rgba(5,5,7,0.95); backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--border); z-index: 1000;
         }
@@ -92,17 +91,86 @@
         
         .nav-links { display: flex; align-items: center; gap: 10px; }
         .nav-links a { 
-            color: var(--text-muted); text-decoration: none; margin-left: 30px; 
+            color: var(--text-muted); text-decoration: none; margin-left: 20px; 
             font-weight: 500; transition: 0.3s; font-size: 0.95rem;
         }
         .nav-links a:hover { color: var(--text-main); }
+        
         .btn-nav { 
-            background: rgba(255,255,255,0.1); padding: 10px 24px; border-radius: 8px; 
+            background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 8px; 
             color: white !important; border: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* NEW: BREAK MODE BUTTON */
+        .btn-break {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .btn-break:hover { background: rgba(239, 68, 68, 0.2); }
+        
+        .btn-break.active-break {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
         /* ========================================= */
-        /* 5. HERO SECTION                           */
+        /* 5. GAMIFICATION STYLES (BROKEN STATE)     */
+        /* ========================================= */
+        body.break-mode-active {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>') 12 12, auto; /* Wrench Cursor */
+        }
+
+        .broken-entity {
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: crosshair !important;
+            box-shadow: 0 0 0 0 transparent;
+        }
+        .broken-entity:hover {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); /* Red glow on hover */
+        }
+
+        .fixed-entity {
+            transform: none !important;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3) !important;
+            border-color: #10b981 !important;
+        }
+
+        /* POPUP BADGE "FIXED!" */
+        .fix-badge {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: #10b981;
+            color: white;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            animation: pop-badge 0.5s forwards;
+            z-index: 10;
+            pointer-events: none;
+        }
+        @keyframes pop-badge {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+
+        /* ========================================= */
+        /* 6. HERO SECTION                           */
         /* ========================================= */
         .hero { padding: 140px 0 80px; position: relative; }
         .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
@@ -141,12 +209,9 @@
         .badge-2 { bottom: 40px; right: -20px; animation: float 7s ease-in-out infinite; }
 
         /* ========================================= */
-        /* 6. CARDS & GRIDS                          */
+        /* 7. CARDS & GRIDS                          */
         /* ========================================= */
-        .reveal {
-            opacity: 0; transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; margin-top: 50px; }
@@ -158,13 +223,16 @@
             border-radius: 16px; border: 1px solid var(--border); 
             transition: 0.4s; overflow: hidden; position: relative;
         }
-        .feature-card:hover, .project-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        /* Disable hover transform in break mode */
+        body:not(.break-mode-active) .feature-card:hover, 
+        body:not(.break-mode-active) .project-card:hover { 
+            transform: translateY(-5px); border-color: var(--primary); 
+        }
 
         .icon-box { font-size: 2rem; margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px; display: inline-block; }
         .cheat-list { list-style: none; }
         .cheat-list li { margin-bottom: 12px; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
 
-        /* Project & Role Cards */
         .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 10px; }
         .card-header h3 { margin: 0; flex: 1; min-width: 200px; }
         .tag { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); background: rgba(14, 165, 233, 0.1); padding: 4px 10px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
@@ -179,7 +247,6 @@
             background: linear-gradient(135deg, var(--bg-card), rgba(14, 165, 233, 0.05));
         }
 
-        /* Gallery */
         .gallery-item {
             position: relative; border-radius: 12px; overflow: hidden; height: 250px; cursor: pointer;
             border: 1px solid var(--border);
@@ -194,7 +261,6 @@
         .gallery-item:hover .overlay { opacity: 1; transform: translateY(0); }
         .overlay h4 { margin: 0; font-size: 1.1rem; color: white; }
 
-        /* Lightbox */
         .lightbox {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.95);
@@ -204,17 +270,60 @@
         .close-lightbox { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; cursor: pointer; }
         .lightbox-caption { margin-top: 15px; color: #fff; font-size: 1.2rem; text-align: center; padding: 0 20px; }
 
-        /* Footer */
         .copyright { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border); font-size: 0.9rem; }
 
-        /* Animations */
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        /* ========================================= */
+        /* 8. TERMINAL STYLES                        */
+        /* ========================================= */
+        .terminal-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 350px;
+            background: rgba(14, 15, 25, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            z-index: 9999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            font-family: var(--font-code);
+            overflow: hidden;
+            transition: opacity 1s ease;
+            opacity: 0;
+        }
+        .terminal-header {
+            background: rgba(255,255,255,0.05);
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .close-terminal-btn {
+            width: 14px; height: 14px; background: #ef4444; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s; color: rgba(0,0,0,0); font-size: 10px;
+        }
+        .close-terminal-btn:hover { color: rgba(0,0,0,0.6); transform: scale(1.1); }
+        .dot-yellow { width: 12px; height: 12px; background: #f59e0b; border-radius: 50%; }
+        .dot-green { width: 12px; height: 12px; background: #10b981; border-radius: 50%; }
+
+        .terminal-content {
+            padding: 15px; font-size: 0.85rem; color: #10b981; height: 160px; overflow-y: auto;
+        }
+        .cursor {
+            display: inline-block; width: 8px; height: 15px; background: #10b981;
+            animation: blink-cursor 0.8s infinite; vertical-align: middle;
+        }
+        @keyframes blink-cursor { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.7; } 100% { transform: scale(1); opacity: 0.5; } }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         @keyframes gradient-shift { 0%, 100% { background-position: 0% center; } 50% { background-position: 100% center; } }
 
+
         /* ========================================= */
-        /* 7. RESPONSIVE FIXES (THE MOBILE MAGIC)    */
+        /* 9. RESPONSIVE FIXES                       */
         /* ========================================= */
         @media (max-width: 1024px) {
             .container { padding: 0 30px; }
@@ -223,57 +332,38 @@
         }
 
         @media (max-width: 768px) {
-            /* General */
             .section-padding { padding: 60px 0; }
             .container { padding: 0 20px; overflow-x: hidden; }
-            
-            /* Shrink the Glow to prevent side scrolling */
             .glow { width: 300px; height: 300px; }
             .glow-1 { top: -50px; left: -50px; }
             .glow-2 { bottom: -50px; right: -50px; }
-
-            /* Fonts */
             h1 { font-size: 2.2rem; line-height: 1.3; }
             .hero-sub { font-size: 1rem; margin-bottom: 30px; }
             .section-header h2 { font-size: 2rem; }
-            
-            /* Navbar Stack */
             .navbar { padding: 15px 0; }
             .nav-container { flex-direction: column; gap: 15px; }
-            .nav-links { 
-                display: flex; gap: 10px; margin-left: 0; flex-wrap: wrap; 
-                justify-content: center; width: 100%;
-            }
+            /* Adjusted Nav for the new button */
+            .nav-links { display: flex; gap: 10px; margin-left: 0; flex-wrap: wrap; justify-content: center; width: 100%; }
             .nav-links a { margin-left: 0; font-size: 0.9rem; padding: 5px; }
-            .btn-nav { display: none; } /* Hide Hire Me on small mobile */
+            .btn-nav { display: none; }
+            .btn-break { margin-left: 0; margin-top: 5px; } /* Adjust button on mobile */
 
-            /* Hero */
             .hero { padding: 120px 0 50px; }
             .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
             .cta-group { justify-content: center; flex-wrap: wrap; }
-            .badge-1, .badge-2 { display: none; } /* Hide floating badges */
-            
-            /* Force Single Column Grids */
-            .grid-2, .grid-3, .grid-balanced { 
-                grid-template-columns: 1fr; 
-                gap: 25px; 
-                margin-top: 30px; 
-            }
-
-            /* Fix Flex layouts inside cards */
+            .badge-1, .badge-2 { display: none; }
+            .grid-2, .grid-3, .grid-balanced { grid-template-columns: 1fr; gap: 25px; margin-top: 30px; }
             .about-card .grid-2 { grid-template-columns: 1fr !important; }
             .feature-card[style*="display: flex"] { flex-direction: row; }
+            
+            .terminal-box { left: 20px; right: 20px; bottom: 20px; width: auto; height: auto; }
         }
 
         @media (max-width: 480px) {
             h1 { font-size: 2rem; }
             .btn { width: 100%; text-align: center; } 
             .cta-group { flex-direction: column; width: 100%; gap: 10px; }
-            
-            /* Ensure stats look good */
             .feature-card h4 { font-size: 1.5rem !important; }
-            
-            /* Gallery */
             .gallery-item { height: 220px; }
             .overlay { opacity: 1; transform: translateY(0); background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
         }
@@ -289,10 +379,11 @@
             <div class="logo">Abdullah<span class="dot">.</span>QA</div>
             <div class="nav-links">
                 <a href="#about">About</a>
-                <a href="#stack">Tech Stack</a>
-                <a href="#projects">Projects</a>
-                <a href="#bugs">Bug Reports</a>
+                <a href="#stack">Stack</a>
+                <a href="#projects">Work</a>
+                <a href="#bugs">Reports</a>
                 <a href="#contact" class="btn-nav">Hire Me</a>
+                <button id="break-btn" class="btn-break" onclick="toggleBreakMode()">🐞 Test Mode: OFF</button>
             </div>
         </div>
     </nav>
@@ -332,7 +423,6 @@
             
             <div class="about-card reveal">
                 <div class="grid-2" style="margin-top: 0; gap: 30px; align-items: center;">
-                    
                     <div>
                         <h3 style="margin-bottom: 15px; color: var(--text-main); font-size: 1.8rem;">
                             More Than Just a <span class="gradient-text">Tester</span>.
@@ -343,13 +433,9 @@
                         <p style="margin-bottom: 12px; color: var(--text-muted); line-height: 1.7;">
                             Currently, as an <strong>SQA Engineer at Nexus Eclipse</strong>, I don't just find bugs; I protect the user experience. I specialize in identifying critical vulnerabilities in Enterprise Systems and FinTech apps before they ever reach production.
                         </p>
-                        <p style="color: var(--text-muted); line-height: 1.7;">
-                            My secret weapon? <strong>AI-Augmented Testing.</strong> I use tools like **Cursor AI** to not only report issues but to analyze code logic and suggest technical fixes, saving developers hours of debugging time.
-                        </p>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
-                        
                         <div class="feature-card" style="padding: 20px; text-align: center; display: flex; align-items: center; justify-content: space-between;">
                             <div style="text-align: left;">
                                 <h4 style="font-size: 2rem; color: var(--accent); margin: 0;">500+</h4>
@@ -357,7 +443,6 @@
                             </div>
                             <div style="font-size: 2rem;">🐞</div>
                         </div>
-
                         <div class="feature-card" style="padding: 20px; text-align: center; display: flex; align-items: center; justify-content: space-between;">
                             <div style="text-align: left;">
                                 <h4 style="font-size: 2rem; color: var(--accent); margin: 0;">24h</h4>
@@ -365,7 +450,6 @@
                             </div>
                             <div style="font-size: 2rem;">⚡</div>
                         </div>
-
                         <div class="feature-card" style="padding: 20px; text-align: center; display: flex; align-items: center; justify-content: space-between;">
                             <div style="text-align: left;">
                                 <h4 style="font-size: 2rem; color: var(--accent); margin: 0;">100%</h4>
@@ -373,9 +457,7 @@
                             </div>
                             <div style="font-size: 2rem;">🤝</div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -398,7 +480,6 @@
                         <li><strong>API:</strong> Postman, REST Assured</li>
                     </ul>
                 </div>
-
                 <div class="feature-card reveal" style="transition-delay: 0.1s;">
                     <div class="icon-box">🛠️</div>
                     <h3>Dev Environment & Ops</h3>
@@ -409,7 +490,6 @@
                         <li><strong>OS:</strong> Linux, Windows, Mobile Environments</li>
                     </ul>
                 </div>
-
                 <div class="feature-card reveal" style="transition-delay: 0.2s;">
                     <div class="icon-box">📢</div>
                     <h3>Communication</h3>
@@ -427,7 +507,6 @@
         <div class="container">
             <div class="section-header text-center reveal">
                 <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Featured <span class="gradient-text">Case Studies</span></h2>
-                <p style="color: var(--text-muted);">Real-world projects showcasing my QA expertise and problem-solving skills.</p>
             </div>
             <div class="grid-2">
                 <div class="project-card reveal">
@@ -438,7 +517,6 @@
                     <p>Performed comprehensive validation for a high-traffic SEO analytics suite. Focused on data accuracy in reports, UI consistency, and exploratory testing.</p>
                     <div class="tech-tags"><span>Manual</span><span>Jira</span><span>SQL</span></div>
                 </div>
-
                 <div class="project-card reveal" style="transition-delay: 0.1s;">
                     <div class="card-header">
                         <h3>Social Networking Hub</h3>
@@ -447,7 +525,6 @@
                     <p>Executed cross-platform testing for a social media application. Ensured seamless synchronization between the web dashboard and iOS/Android mobile apps.</p>
                     <div class="tech-tags"><span>Appium</span><span>iOS</span><span>Android</span></div>
                 </div>
-
                 <div class="project-card reveal">
                     <div class="card-header">
                         <h3>Event Management SaaS</h3>
@@ -456,14 +533,13 @@
                     <p>Developed and maintained automated test scripts to verify complex workflows such as event registration and submission processes.</p>
                     <div class="tech-tags"><span>Selenium</span><span>Python</span><span>Jenkins</span></div>
                 </div>
-
                 <div class="project-card reveal current-role-card" style="transition-delay: 0.1s;">
                     <div class="card-header">
                         <h3>Nexus Eclipse</h3>
                         <span class="tag current-tag">Current Role</span>
                     </div>
                     <p class="role-sub">SQA Engineer | Quality Assurance Company</p>
-                    <p>Leading comprehensive QA initiatives for enterprise clients, ensuring software reliability through systematic testing methodologies. Specializing in functional, regression, API, and performance testing while leveraging AI-powered tools for enhanced debugging and code analysis.</p>
+                    <p>Leading comprehensive QA initiatives for enterprise clients, ensuring software reliability through systematic testing methodologies.</p>
                     <div class="tech-tags"><span>Full Cycle QA</span><span>Cursor AI</span><span>API Testing</span><span>Regression</span></div>
                 </div>
             </div>
@@ -474,9 +550,7 @@
         <div class="container">
             <div class="section-header text-center reveal">
                 <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Bug Report <span class="gradient-text">Showcase</span></h2>
-                <p style="color: var(--text-muted);">Evidence of my detailed reporting and finding critical issues.</p>
             </div>
-
             <div class="grid-balanced">
                 <div class="gallery-item reveal">
                     <img src="bug_reports/1.jpg" alt="Bug Report 1" onclick="openLightbox(this)">
@@ -485,7 +559,6 @@
                         <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--accent);">View Details</p>
                     </div>
                 </div>
-
                 <div class="gallery-item reveal" style="transition-delay: 0.1s;">
                     <img src="bug_reports/2.jpg" alt="Bug Report 2" onclick="openLightbox(this)">
                     <div class="overlay">
@@ -493,7 +566,6 @@
                         <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--accent);">View Details</p>
                     </div>
                 </div>
-
                 <div class="gallery-item reveal" style="transition-delay: 0.2s;">
                     <img src="bug_reports/3.jpg" alt="Bug Report 3" onclick="openLightbox(this)">
                     <div class="overlay">
@@ -501,7 +573,6 @@
                         <p style="margin: 5px 0 0; font-size: 0.85rem; color: var(--accent);">View Details</p>
                     </div>
                 </div>
-
                 <div class="gallery-item reveal">
                     <img src="bug_reports/4.jpg" alt="Bug Report 4" onclick="openLightbox(this)">
                     <div class="overlay">
@@ -510,7 +581,6 @@
                     </div>
                 </div>
             </div>
-            
             <p class="text-center" style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem;">
                 *Screenshots contain confidential data redactions where necessary.
             </p>
@@ -523,9 +593,7 @@
                 <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Get in <span class="gradient-text">Touch</span></h2>
                 <p style="margin-bottom: 50px; color: var(--text-muted);">Have a project in mind? Let's connect.</p>
             </div>
-
             <div class="grid-3 contact-grid" style="max-width: 1000px; margin: 0 auto;">
-                
                 <a href="mailto:raoabdullaht@gmail.com" style="text-decoration: none;">
                     <div class="feature-card reveal" style="text-align: center; cursor: pointer;">
                         <div class="icon-box">📧</div>
@@ -533,7 +601,6 @@
                         <p style="color: var(--text-muted);">raoabdullaht@gmail.com</p>
                     </div>
                 </a>
-
                 <a href="https://pk.linkedin.com/in/abdullah-tariq-013842348" target="_blank" style="text-decoration: none;">
                     <div class="feature-card reveal" style="text-align: center; cursor: pointer; transition-delay: 0.1s;">
                         <div class="icon-box">💼</div>
@@ -541,7 +608,6 @@
                         <p style="color: var(--text-muted);">Let's Connect</p>
                     </div>
                 </a>
-
                 <a href="https://github.com/abdullah-tariq" target="_blank" style="text-decoration: none;">
                     <div class="feature-card reveal" style="text-align: center; cursor: pointer; transition-delay: 0.2s;">
                         <div class="icon-box">💻</div>
@@ -549,7 +615,6 @@
                         <p style="color: var(--text-muted);">Check My Code</p>
                     </div>
                 </a>
-
             </div>
         </div>
     </section>
@@ -568,23 +633,175 @@
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
+    <div id="terminal-loader" class="terminal-box">
+        <div class="terminal-header">
+            <div class="close-terminal-btn" onclick="forceCloseTerminal()">×</div>
+            <div class="dot-yellow"></div>
+            <div class="dot-green"></div>
+            <span>Abdullah_QA_Bot.exe</span>
+        </div>
+        <div class="terminal-content">
+            <div id="terminal-lines"></div>
+            <span class="cursor"></span>
+        </div>
+    </div>
+
     <script>
-        // Scroll Animation Logic
+        // --- 1. GAMIFICATION LOGIC (TEST MODE) ---
+        let isBreakMode = false;
+        const breakBtn = document.getElementById('break-btn');
+
+        function toggleBreakMode() {
+            isBreakMode = !isBreakMode;
+            const targets = document.querySelectorAll('.feature-card, .project-card, .gallery-item, h1, h2, .logo, .hero-sub, .image-card');
+
+            if (isBreakMode) {
+                // ACTIVATE CHAOS
+                breakBtn.innerHTML = "🛠️ Fix Mode: ON";
+                breakBtn.classList.add('active-break');
+                document.body.classList.add('break-mode-active');
+                
+                // Print to terminal if visible
+                printToTerminal("> WARNING: UI DESTABILIZED. QA REQUIRED.");
+
+                targets.forEach(el => {
+                    if(el === breakBtn) return;
+                    
+                    // Random random transform
+                    const rot = (Math.random() * 8) - 4; // -4deg to 4deg
+                    const x = (Math.random() * 6) - 3;
+                    const y = (Math.random() * 6) - 3;
+                    
+                    el.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+                    el.classList.add('broken-entity');
+                    el.classList.remove('fixed-entity');
+                    
+                    // Add Click-to-Fix listener
+                    el.removeEventListener('click', fixObject); 
+                    el.addEventListener('click', fixObject);
+                });
+            } else {
+                // RESET TO NORMAL
+                breakBtn.innerHTML = "🐞 Test Mode: OFF";
+                breakBtn.classList.remove('active-break');
+                document.body.classList.remove('break-mode-active');
+                
+                targets.forEach(el => {
+                    resetElement(el);
+                });
+            }
+        }
+
+        function fixObject(e) {
+            if (!isBreakMode) return;
+            
+            e.preventDefault(); 
+            e.stopPropagation();
+            
+            const el = e.currentTarget;
+            if (el.classList.contains('fixed-entity')) return;
+
+            // Reset and animate
+            el.style.transform = "none";
+            el.classList.add('fixed-entity');
+            el.classList.remove('broken-entity');
+            
+            // Show "FIXED" Badge
+            const badge = document.createElement('div');
+            badge.className = 'fix-badge';
+            badge.innerText = "FIXED! ✅";
+            el.appendChild(badge);
+            
+            setTimeout(() => badge.remove(), 1000);
+        }
+
+        function resetElement(el) {
+            el.style.transform = "";
+            el.classList.remove('broken-entity', 'fixed-entity');
+            el.removeEventListener('click', fixObject);
+        }
+
+        // --- 2. TERMINAL LOGIC ---
+        const terminalLoader = document.getElementById('terminal-loader');
+        const terminalLines = document.getElementById('terminal-lines');
+        let isTerminalClosed = false;
+
+        function forceCloseTerminal() {
+            isTerminalClosed = true;
+            terminalLoader.style.opacity = '0';
+            setTimeout(() => {
+                terminalLoader.style.display = 'none';
+            }, 500);
+        }
+        
+        setTimeout(() => {
+            if (!isTerminalClosed) terminalLoader.style.opacity = '1';
+        }, 500);
+
+        const logs = [
+            "> Initializing Abdullah's portfolio...",
+            "> Connecting to Nexus Eclipse server...",
+            "> Loading QA modules...",
+            "> Skills: Selenium, Cypress, AI.",
+            "> Status: READY TO HIRE. ✅"
+        ];
+
+        let logIndex = 0;
+        let charIndex = 0;
+
+        function typeLine() {
+            if (isTerminalClosed) return;
+            if (logIndex < logs.length) {
+                let currentLine = logs[logIndex];
+                
+                if (charIndex === 0) {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.style.marginBottom = "5px";
+                    lineDiv.id = `line-${logIndex}`;
+                    terminalLines.appendChild(lineDiv);
+                }
+
+                document.getElementById(`line-${logIndex}`).textContent += currentLine.charAt(charIndex);
+                charIndex++;
+                document.querySelector('.terminal-content').scrollTop = document.querySelector('.terminal-content').scrollHeight;
+
+                if (charIndex < currentLine.length) {
+                    setTimeout(typeLine, 20 + Math.random() * 30);
+                } else {
+                    logIndex++; charIndex = 0; setTimeout(typeLine, 400);
+                }
+            } else {
+                setTimeout(() => {
+                    if(!isTerminalClosed) forceCloseTerminal();
+                }, 4000);
+            }
+        }
+        
+        function printToTerminal(text) {
+            if(isTerminalClosed) return;
+            const lineDiv = document.createElement('div');
+            lineDiv.style.marginBottom = "5px";
+            lineDiv.style.color = "#ef4444";
+            lineDiv.textContent = text;
+            terminalLines.appendChild(lineDiv);
+            document.querySelector('.terminal-content').scrollTop = document.querySelector('.terminal-content').scrollHeight;
+        }
+
+        setTimeout(typeLine, 1000);
+
+        // --- 3. STANDARD UTILITIES ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Lightbox Logic
         function openLightbox(img) {
+            if (isBreakMode) return; // Prevent lightbox in break mode
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
             const caption = document.getElementById('lightbox-caption');
-            
             lightbox.style.display = "flex";
             lightboxImg.src = img.src;
             const overlayTitle = img.nextElementSibling.querySelector('h4').innerText;
